@@ -8,7 +8,7 @@ from azure.storage.blob import BlobServiceClient
 from azure.storage.blob import BlobClient
 
 
-SUBSCRIPTION_ID = os.environ.get("SUBSCRIPTION_ID", None)
+#haetaan subscription id ympäristömuuttujasta ja luodaan credential olio
 credential = AzureCliCredential()
 subscription_id = os.environ["SUBSCRIPTION_ID"]
 
@@ -26,11 +26,11 @@ def GetAndWrite():
             tiedosto.write(i['parameter']+"\n")
 
 #funktio luo uuden containerin olemassa olevaan storage accountiin, containerin nimi annetaan parametrina
-def GreateBlobContainer(BCname):
+def GreateBlobContainer(BCname,RGname,Storagename):
         storage_client = StorageManagementClient(credential,subscription_id)
         storage_client.blob_containers.create(
-        "ville-petteritestiRG",
-        "villepetteristorage",
+        RGname,
+        Storagename,
         BCname,
         {}
         )
@@ -45,7 +45,7 @@ def uploadfiletocontainer(tiedosto,container):
 
 #funktioiden suoritus
 GetAndWrite()
-GreateBlobContainer("checkpointcontainer")
+GreateBlobContainer("checkpointcontainer","ville-petteritestiRG","villepetteristorage")
 uploadfiletocontainer("checkpoint.txt","checkpointcontainer")
     
 
