@@ -25,20 +25,26 @@ def downloadfile(containername,filename):
         blob_data = blob.download_blob()
         blob_data.readinto(my_blob)
 
+#funktio lukee ladatun tiedoston listaan, tiedoston nimi annetaan parametrina
+#listasta valitaan komentoriviparametrin mukainen rivimäärä
+#valitun mittainen lista järjestetään ensisijaisesti pituuden, toissijaisesti aakkosjärjestyksen mukaan
+#järjestetyt alkiot tulostetaan yksi kerrallaan omille riveilleen
 def CutSortAndPrint(filename):
     readlist=[]
     cutlist=[]
+    sortedlist=[]
     with open(filename) as file:
         for rivi in file:
             rivi=rivi.replace("\n","")
             readlist.append(rivi)
 
     cutlist=readlist[0:args.Rivimaara]
-    print(cutlist)
+    sortedlist=sorted(cutlist,key=lambda x: (len(x),x))
 
-#lajiteltu=sorted(alkulista,key=lambda x: (len(x),x))
+    for i in sortedlist:
+        print(i)
 
 
-
+#funktioiden suoritus
 downloadfile("checkpointcontainer","checkpoint.txt")
 CutSortAndPrint("checkpoint.txt")
