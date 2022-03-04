@@ -25,7 +25,7 @@ def GetAndWrite():
         for i in data["items"]:
             tiedosto.write(i['parameter']+"\n")
 
-#funktio luo uuden containerin olemassa olevaan storage accountiin, containerin nimi annetaan parametrina
+#funktio luo uuden containerin olemassa olevaan storage accountiin, containerin nimi,storage accountin nimi ja RGn nimi annetaan parametrina
 def GreateBlobContainer(BCname,RGname,Storagename):
         storage_client = StorageManagementClient(credential,subscription_id)
         storage_client.blob_containers.create(
